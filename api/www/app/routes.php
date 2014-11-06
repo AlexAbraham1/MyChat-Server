@@ -11,4 +11,6 @@
 |
 */
 
-Route::get('/', 'HomeController@showHome');
+Route::get('/', 'MessageController@showHome');
+
+Route::get('/messages', 'MessageController@getAllMessages');
