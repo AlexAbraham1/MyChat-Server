@@ -25,7 +25,11 @@
     </p>
 
     <!-- submit button -->
-    <p><?php echo Form::submit('Login'); ?></p>
+    <p>
+        <?php echo Form::checkbox('rememberme', 'Remember Me'); ?> Remember Me<br /><br />
+        <?php echo Form::submit('Login'); ?>
+
+    </p>
 
     <?php echo Form::close(); ?>
 

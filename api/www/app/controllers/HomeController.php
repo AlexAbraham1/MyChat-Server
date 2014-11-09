@@ -44,8 +44,14 @@ class HomeController extends BaseController {
             'username' => Input::get('username'),
             'password' => Input::get('password')
         );
+
+        if (Input::get('rememberme') == true) {
+        	$remember = true;
+        } else {
+        	$remember = false;
+        }
         
-        if (Auth::attempt($user)) {
+        if (Auth::attempt($user, $remember)) {
             return Redirect::route('home')
                 ->with('flash_notice', 'You are successfully logged in.');
         }

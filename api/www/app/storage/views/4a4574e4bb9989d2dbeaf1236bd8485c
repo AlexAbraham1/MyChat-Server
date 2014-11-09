@@ -1,5 +1,11 @@
 <?php $__env->startSection('content'); ?>
     <h1>Home page</h1>
     <p>Current time: <?php echo date('F j, Y, g:i A'); ?>  </p>
+
+    <?php if(Auth::check()): ?>
+        <p>Current User: "<?php echo Auth::user()->username; ?>"</p>
+    <?php else: ?>
+        <p>CLICK <?php echo HTML::link(URL::route('login'), 'HERE'); ?> TO LOGIN</p>
+    <?php endif; ?>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

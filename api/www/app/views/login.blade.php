@@ -24,7 +24,10 @@
     </p>
 
     <!-- submit button -->
-    <p>{{ Form::submit('Login') }}</p>
+    <p>
+        {{ Form::checkbox('rememberme', 'Remember Me') }} Remember Me<br /><br />
+        {{ Form::submit('Login') }}
+    </p>
 
     {{ Form::close() }}
 

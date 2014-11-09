@@ -1,29 +1,17 @@
 <?php
 
-class Message extends BaseModel implements MessageRepository {
+class Message extends Eloquent implements MessageRepository {
 
-	protected $guarded = ['id'];
-
-	protected static $rules = [
-		'text' => 'required'
-	];
+	protected $guarded = array('id');
 
 	public function getAllMessages($username = null) 
 	{
-		$messages = $this->with('user')->get();
+		$messages = Auth::user()->messages;
 
 		foreach ($messages as $message) {
 
-			if ($username and $message->user->username !== $username) {
-
-				throw new Illuminate\Database\Eloquent\ModelNotFoundException;
-
-			} else {
-
-				$message = $message->formatted();
-
-			}
-
+			$message = $message->formatted();
+		
 		}
 
 		return $messages->toArray();
@@ -47,23 +35,36 @@ class Message extends BaseModel implements MessageRepository {
 
 	public function addMessage($jsonobject)
 	{
-		$newMessage = new Message();
 
-		if (is_array($jsonobject) AND count($jsonobject)) {
+		if (Auth::check()) {
 
-			if (isset($jsonobject['text']) && $text = $jsonobject['text']) {
-				$newMessage->text = $text;
+
+			$user = User::find(Auth::user()->id);
+
+			$newMessage = new Message();
+
+			if (is_array($jsonobject) AND count($jsonobject)) {
+
+				if (isset($jsonobject['text']) && $text = $jsonobject['text']) {
+					$newMessage->text = $text;
+				} else {
+					throw new Exception("'text' field is missing"); die();
+				}
+
+				$newMessage->save();
+
+				$user->messages()->save($newMessage);
+
+				return $newMessage->formatted();
+
 			} else {
-				throw new Exception("'text' field is missing"); die();
+				throw new Exception('Invalid JSON'); die();
 			}
 
-			$newMessage->save();
-
-			return $newMessage->formatted();
-
 		} else {
-			throw new Exception('Invalid JSON'); die();
+			throw new Exception('User is not logged in!'); die();
 		}
+		
 
 	}
 

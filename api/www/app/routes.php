@@ -35,4 +35,6 @@ Route::post('new/user', 'HomeController@createNewUser');
 
 
 
-Route::get('/messages', 'MessageController@getAllMessages');
+Route::get('messages', array('as' => 'messages', 'before' => 'auth', 'uses' => 'MessageController@getAllMessages'));
+
+Route::post('new/message', array('as' => 'new_message', 'before' => 'auth', 'uses' => 'MessageController@addMessage'));
