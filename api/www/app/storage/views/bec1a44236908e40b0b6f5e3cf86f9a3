@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>MyChat</title>
+    <?php echo HTML::style('/css/style.css'); ?>
+
+    <link rel="shortcut icon" href="<?php echo asset('favicon.ico'); ?>">
+</head>
+<body>
+    <div id="container">
+        <div id="nav">
+            <ul>
+                <li><?php echo HTML::link(URL::route('home'), 'Home'); ?></li>
+                <?php if(Auth::check()): ?>
+                    <li><?php echo HTML::link(URL::route('profile'), 'Profile' ); ?></li>
+                    <li><?php echo HTML::link(URL::route('logout'), 'Logout ('.Auth::user()->username.')'); ?></li>
+                <?php else: ?>
+                    <li><?php echo HTML::link(URL::route('login'), 'Login'); ?></li>
+                <?php endif; ?>
+            </ul>
+        </div><!-- end nav -->
+
+        <!-- check for flash notification message -->
+        <?php if(Session::has('flash_notice')): ?>
+            <div id="flash_notice"><?php echo Session::get('flash_notice'); ?></div>
+        <?php endif; ?>
+
+        <?php echo $__env->yieldContent('content'); ?>
+    </div><!-- end container -->
+</body>
+</html>

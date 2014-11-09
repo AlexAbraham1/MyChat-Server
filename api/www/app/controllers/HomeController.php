@@ -1,76 +1,90 @@
 <?php
 
-class MessageController extends BaseController {
+class HomeController extends BaseController {
 
-	public function __construct(MessageRepository $message)
-	{
-		$this->message = $message;
-	}
+	//GET METHODS
 
 	public function showHome()
 	{
 		return View::make('home');
 	}
 
-	//GET Methods
-	public function getAllMessages()
+	public function showLogin()
 	{
-		try {
-			$messages['data'] = $this->message->getAllMessages();
-		} catch (Exception $e) {
-			
-			$issue = $e->getMessage();
-			$error = array('message'=>$issue);
-			return $this->error($error);
-
-		}
-
-		return Response::json($messages);
+		return View::make('login');
 	}
 
-	public function getMessageById($id)
+	public function showNewUser()
 	{
-		$message['data'] = $this->message->getMessageByID($id);
-		return Response::json($message);
+		return View::make('create_user');
+	}
+
+	public function showProfile()
+	{
+		return View::make('profile');
+	}
+
+	public function logout()
+	{
+		Auth::logout();
+
+    	return Redirect::route('home')
+    		->with('flash_notice', 'You are successfully logged out.');
 	}
 
 
-	//POST Methods
 
-	public function addMessage()
+
+
+	//POST METHODS
+
+	public function login()
 	{
-		$json = Input::get();
+		$user = array(
+            'username' => Input::get('username'),
+            'password' => Input::get('password')
+        );
+        
+        if (Auth::attempt($user)) {
+            return Redirect::route('home')
+                ->with('flash_notice', 'You are successfully logged in.');
+        }
 
-		try {
-			$message['data'] = $this->message->addMessage($json);
-		} catch (Exception $e) {
-
-			$issue = $e->getMessage();
-			$error = array('message'=>$issue);
-			return $this->error($error);
-
-		}
-		
-		return Response::json($message);	
+        // authentication failure! lets go back to the login page
+        return Redirect::route('login')
+            ->with('flash_error', 'Your username/password combination was incorrect.')
+            ->withInput();
 	}
 
-	//DELETE Methods
-
-	public function removeMessage($id)
+	public function createNewUser()
 	{
-		try {
+		$username = Input::get('username');
+		$newUser = array(
+			'username' => $username,
+			'password' => Hash::make(Input::get('password'))
+		);
 
-			$message['data'] = $this->message->removeMessage($id);
+		$rules = array('username' => 'unique:users,username', 'password' => 'required');
 
-		} catch (Exception $e) {
+		$validator = Validator::make(Input::only('username', 'password'), $rules);
 
-			$issue = $e->getMessage();
-			$error = array('message'=>$issue);
-			return $this->error($error);
-			
-		}
+		if ($validator->fails()) {
 
-		return Response::json($message);
+			$messages = $validator->messages();
+
+			return Redirect::route('create_user')
+	            ->with('flash_error', $messages->first())
+	            ->withInput();
+		} else {
+			User::create($newUser);
+
+			$user = User::where('username', '=', $username)->first();
+
+			Auth::login($user);
+
+	        return Redirect::route('home')
+	                ->with('flash_notice', 'Your account was successfully created!');
+        }
 	}
 
 }

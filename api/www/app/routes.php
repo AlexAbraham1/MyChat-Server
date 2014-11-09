@@ -11,6 +11,28 @@
 |
 */
 
-Route::get('/', 'MessageController@showHome');
+//Home Controller
+Route::get('/', array('as' => 'home', 'uses' => 'HomeController@showHome'));
+
+Route::get('login', array('as' => 'login', 'before' => 'guest', 'uses' => 'HomeController@showLogin'));
+
+Route::post('login', 'HomeController@login');
+
+Route::get('logout', array('as' => 'logout', 'before' => 'auth', 'uses' => 'HomeController@logout'));
+
+Route::get('profile', array('as' => 'profile', 'before' => 'auth', 'uses' => 'HomeController@showProfile'));
+
+Route::get('new/user', array('as' => 'create_user', 'before' => 'guest', 'uses' => 'HomeController@showNewUser'));
+
+Route::post('new/user', 'HomeController@createNewUser');
+
+// Route::get('/delete/users/{id}', function($id) {
+// 	$user = User::find($id);
+// 	$user->delete();
+// });
+
+
+
+
 
 Route::get('/messages', 'MessageController@getAllMessages');

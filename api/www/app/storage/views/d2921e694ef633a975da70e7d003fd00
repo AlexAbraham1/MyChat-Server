@@ -1,0 +1,35 @@
+<?php $__env->startSection('content'); ?>
+    <h1>Create New User</h1>
+
+    <!-- check for login error flash var -->
+    <?php if(Session::has('flash_error')): ?>
+        <div id="flash_error"><?php echo Session::get('flash_error'); ?></div>
+
+    <?php endif; ?>
+
+    <?php echo Form::open(array('url' => 'new/user', 'method' => 'post')); ?>
+
+
+    <!-- username field -->
+    <p>
+        <?php echo Form::label('username', 'Username'); ?><br/>
+        <?php echo Form::text('username', Input::old('username')); ?>
+
+    </p>
+
+    <!-- password field -->
+    <p>
+        <?php echo Form::label('password', 'Password'); ?><br/>
+        <?php echo Form::password('password'); ?>
+
+    </p>
+
+    <!-- submit button -->
+    <p><?php echo Form::submit('Create User'); ?></p>
+
+    <?php echo Form::close(); ?>
+
+
+    <h3><?php echo HTML::link(URL::route('login'), 'Login'); ?></h3>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

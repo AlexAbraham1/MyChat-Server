@@ -1,31 +1,47 @@
 <?php
 
-class Message extends Eloquent implements MessageRepository {
+class Message extends BaseModel implements MessageRepository {
 
-	public function getAllMessages() 
+	protected $guarded = ['id'];
+
+	protected static $rules = [
+		'text' => 'required'
+	];
+
+	public function getAllMessages($username = null) 
 	{
-		$messages = $this->get();
+		$messages = $this->with('user')->get();
 
 		foreach ($messages as $message) {
-			$message = $message->formatted();
+
+			if ($username and $message->user->username !== $username) {
+
+				throw new Illuminate\Database\Eloquent\ModelNotFoundException;
+
+			} else {
+
+				$message = $message->formatted();
+
+			}
+
 		}
 
 		return $messages->toArray();
 	}
 
-	public function getMessageByID($id)
+	public function getMessageByID($id, $username = null)
 	{
 
-		$message = $this->find($id);
+		$message = $this->with('user')->find($id);
 
-		if ($message != null) {
+		if ($username and $message->user->username !== $username) {
 
-			return $message->formatted();
+			throw new Illuminate\Database\Eloquent\ModelNotFoundException;
 
 		} else {
 
-			throw new Exception("Sorry, Message ID Not Found"); die();
-			
+			return $message->formatted();
+
 		}
 	}
 
@@ -69,5 +85,10 @@ class Message extends Eloquent implements MessageRepository {
 	public function formatted()
 	{	
 		return $this->toArray();
+	}
+
+	public function user()
+	{
+		return $this->belongsTo('User');
 	}
 }
