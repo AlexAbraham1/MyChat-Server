@@ -12,7 +12,7 @@
             <ul>
                 <li>{{ HTML::link(URL::route('home'), 'Home') }}</li>
                 @if(Auth::check())
-                    <li>{{ HTML::link(URL::route('profile'), 'Profile' ) }}</li>
+                    <li>{{ HTML::link(URL::route('me'), 'Messages' ) }}</li>
                     <li>{{ HTML::link(URL::route('logout'), 'Logout ('.Auth::user()->username.')') }}</li>
                 @else
                     <li>{{ HTML::link(URL::route('login'), 'Login') }}</li>

@@ -19,9 +19,9 @@ class HomeController extends BaseController {
 		return View::make('create_user');
 	}
 
-	public function showProfile()
+	public function showMe()
 	{
-		return View::make('profile');
+		return View::make('me');
 	}
 
 	public function logout()

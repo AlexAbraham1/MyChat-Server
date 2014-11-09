@@ -20,7 +20,7 @@ Route::post('login', 'HomeController@login');
 
 Route::get('logout', array('as' => 'logout', 'before' => 'auth', 'uses' => 'HomeController@logout'));
 
-Route::get('profile', array('as' => 'profile', 'before' => 'auth', 'uses' => 'HomeController@showProfile'));
+Route::get('me', array('as' => 'me', 'before' => 'auth', 'uses' => 'HomeController@showMe'));
 
 Route::get('new/user', array('as' => 'create_user', 'before' => 'guest', 'uses' => 'HomeController@showNewUser'));
 

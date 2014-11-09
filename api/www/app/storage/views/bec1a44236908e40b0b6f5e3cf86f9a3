@@ -13,7 +13,7 @@
             <ul>
                 <li><?php echo HTML::link(URL::route('home'), 'Home'); ?></li>
                 <?php if(Auth::check()): ?>
-                    <li><?php echo HTML::link(URL::route('profile'), 'Profile' ); ?></li>
+                    <li><?php echo HTML::link(URL::route('me'), 'Messages' ); ?></li>
                     <li><?php echo HTML::link(URL::route('logout'), 'Logout ('.Auth::user()->username.')'); ?></li>
                 <?php else: ?>
                     <li><?php echo HTML::link(URL::route('login'), 'Login'); ?></li>
