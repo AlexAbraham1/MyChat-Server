@@ -1582,3 +1582,51 @@ Stack trace:
 #9 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(641): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
 #10 /var/www/public/index.php(49): Illuminate\Foundation\Application->run()
 #11 {main} [] []
+[2014-11-10 18:49:36] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'syntax error, unexpected ')', expecting ',' or ';'' in /var/www/app/storage/views/30acec008f9f4f28c3a1f3244ead4811:33
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-11-10 18:49:48] production.ERROR: exception 'ErrorException' with message 'Array to string conversion' in /var/www/app/storage/views/30acec008f9f4f28c3a1f3244ead4811:33
+Stack trace:
+#0 /var/www/app/storage/views/30acec008f9f4f28c3a1f3244ead4811(33): Illuminate\Exception\Handler->handleError(8, 'Array to string...', '/var/www/app/st...', 33, Array)
+#1 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(37): include('/var/www/app/st...')
+#2 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(56): Illuminate\View\Engines\PhpEngine->evaluatePath('/var/www/app/st...', Array)
+#3 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(134): Illuminate\View\Engines\CompilerEngine->get('/var/www/app/co...', Array)
+#4 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(102): Illuminate\View\View->getContents()
+#5 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(76): Illuminate\View\View->renderContents()
+#6 /var/www/vendor/laravel/framework/src/Illuminate/Http/Response.php(43): Illuminate\View\View->render()
+#7 /var/www/vendor/symfony/http-foundation/Symfony/Component/HttpFoundation/Response.php(202): Illuminate\Http\Response->setContent(Object(Illuminate\View\View))
+#8 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1496): Symfony\Component\HttpFoundation\Response->__construct(Object(Illuminate\View\View))
+#9 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1031): Illuminate\Routing\Router->prepareResponse(Object(Illuminate\Http\Request), Object(Illuminate\View\View))
+#10 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(996): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#11 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(775): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#12 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(745): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#13 /var/www/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#14 /var/www/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#15 /var/www/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#16 /var/www/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#17 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(641): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#18 /var/www/public/index.php(49): Illuminate\Foundation\Application->run()
+#19 {main}
+
+Next exception 'ErrorException' with message 'Array to string conversion (View: /var/www/app/views/me.blade.php)' in /var/www/app/storage/views/30acec008f9f4f28c3a1f3244ead4811:33
+Stack trace:
+#0 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(41): Illuminate\View\Engines\CompilerEngine->handleViewException(Object(ErrorException), 1)
+#1 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(56): Illuminate\View\Engines\PhpEngine->evaluatePath('/var/www/app/st...', Array)
+#2 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(134): Illuminate\View\Engines\CompilerEngine->get('/var/www/app/co...', Array)
+#3 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(102): Illuminate\View\View->getContents()
+#4 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(76): Illuminate\View\View->renderContents()
+#5 /var/www/vendor/laravel/framework/src/Illuminate/Http/Response.php(43): Illuminate\View\View->render()
+#6 /var/www/vendor/symfony/http-foundation/Symfony/Component/HttpFoundation/Response.php(202): Illuminate\Http\Response->setContent(Object(Illuminate\View\View))
+#7 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1496): Symfony\Component\HttpFoundation\Response->__construct(Object(Illuminate\View\View))
+#8 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1031): Illuminate\Routing\Router->prepareResponse(Object(Illuminate\Http\Request), Object(Illuminate\View\View))
+#9 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(996): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#10 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(775): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#11 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(745): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#12 /var/www/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#13 /var/www/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#14 /var/www/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#15 /var/www/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#16 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(641): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#17 /var/www/public/index.php(49): Illuminate\Foundation\Application->run()
+#18 {main} [] []

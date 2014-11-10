@@ -33,7 +33,7 @@ class Message extends Eloquent implements MessageRepository {
 		}
 	}
 
-	public function addMessage($jsonobject)
+	public function addMessage($text)
 	{
 
 		if (Auth::check()) {
@@ -43,23 +43,17 @@ class Message extends Eloquent implements MessageRepository {
 
 			$newMessage = new Message();
 
-			if (is_array($jsonobject) AND count($jsonobject)) {
-
-				if (isset($jsonobject['text']) && $text = $jsonobject['text']) {
-					$newMessage->text = $text;
-				} else {
-					throw new Exception("'text' field is missing"); die();
-				}
-
-				$newMessage->save();
-
-				$user->messages()->save($newMessage);
-
-				return $newMessage->formatted();
-
+			if ($text) {
+				$newMessage->text = $text;
 			} else {
-				throw new Exception('Invalid JSON'); die();
+				throw new Exception("'text' field is missing"); die();
 			}
+
+			$newMessage->save();
+
+			$user->messages()->save($newMessage);
+
+			return $newMessage->formatted();
 
 		} else {
 			throw new Exception('User is not logged in!'); die();

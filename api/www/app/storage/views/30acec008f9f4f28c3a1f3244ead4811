@@ -23,6 +23,23 @@
 	
   </table>
 
+
+  <!--FORM TO ADD MESSAGE -->
+
+  <?php echo Form::open(array('url' => 'new/message', 'method' => 'post')); ?>
+
+
+  <p>
+      <span style="margin-left: 100px;"><?php echo Form::text('text', Input::old('text'),  array('placeholder'=>'ADD TASK')); ?></span>
+
+      <span style="margin-left: 30px;"><?php echo Form::submit('POST'); ?></span>
+  </p>
+
+
+
+  <?php echo Form::close(); ?>
+
+
   
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

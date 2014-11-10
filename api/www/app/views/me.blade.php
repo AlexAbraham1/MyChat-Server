@@ -25,5 +25,20 @@
 	
   </table>
 
+
+  <!--FORM TO ADD MESSAGE -->
+
+  {{ Form::open(array('url' => 'new/message', 'method' => 'post')) }}
+
+  <p>
+      <span style="margin-left: 100px;">{{ Form::text('text', Input::old('text'),  array('placeholder'=>'ADD TASK')) }}</span>
+
+      <span style="margin-left: 30px;">{{ Form::submit('POST') }}</span>
+  </p>
+
+
+
+  {{ Form::close() }}
+
   
 @stop

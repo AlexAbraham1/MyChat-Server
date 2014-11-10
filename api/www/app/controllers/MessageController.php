@@ -34,10 +34,10 @@ class MessageController extends BaseController {
 
 	public function addMessage()
 	{
-		$json = Input::get();
+		$text = Input::get('text');
 
 		try {
-			$message['data'] = $this->message->addMessage($json);
+			$message['data'] = $this->message->addMessage($text);
 		} catch (Exception $e) {
 
 			$issue = $e->getMessage();
@@ -46,7 +46,13 @@ class MessageController extends BaseController {
 
 		}
 		
-		return Response::json($message);	
+		if (Request::ajax()) {
+			return Response::json($message);
+		} else {
+			return Redirect::route('me')
+                ->with('flash_notice', 'Your message was successfully added');
+		}
+			
 	}
 
 	//DELETE Methods
